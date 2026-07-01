@@ -106,21 +106,66 @@
   }
 
   function bindNav() {
+    const main = $(".main");
     const sections = $$("section[id]");
     const links = $$("[data-nav-link]");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (!visible) return;
-        links.forEach((link) => {
-          link.classList.toggle("active", link.getAttribute("href") === `#${visible.target.id}`);
+    if (!main || sections.length === 0) return;
+
+    function topbarHeight() {
+      return $(".topbar")?.offsetHeight || 0;
+    }
+
+    function setActiveLink(sectionId) {
+      links.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${sectionId}`);
+      });
+    }
+
+    function updateActiveLink() {
+      const atBottom = main.scrollTop + main.clientHeight >= main.scrollHeight - 2;
+      if (atBottom) {
+        setActiveLink(sections[sections.length - 1].id);
+        return;
+      }
+
+      const marker = main.scrollTop + topbarHeight() + 24;
+      let current = sections[0].id;
+      sections.forEach((section) => {
+        if (section.offsetTop <= marker) {
+          current = section.id;
+        }
+      });
+      setActiveLink(current);
+    }
+
+    links.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const targetId = link.getAttribute("href")?.slice(1);
+        const target = targetId ? document.getElementById(targetId) : null;
+        if (!target) return;
+
+        event.preventDefault();
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        main.scrollTo({
+          top: Math.max(0, target.offsetTop - topbarHeight()),
+          behavior: reduceMotion ? "auto" : "smooth",
         });
-      },
-      { rootMargin: "-20% 0px -70% 0px", threshold: [0.1, 0.25, 0.5] },
-    );
-    sections.forEach((section) => observer.observe(section));
+        window.history.pushState(null, "", `#${targetId}`);
+        setActiveLink(targetId);
+      });
+    });
+
+    let ticking = false;
+    main.addEventListener("scroll", () => {
+      if (ticking) return;
+      window.requestAnimationFrame(() => {
+        updateActiveLink();
+        ticking = false;
+      });
+      ticking = true;
+    });
+    window.addEventListener("resize", updateActiveLink);
+    updateActiveLink();
   }
 
   function renderAll() {

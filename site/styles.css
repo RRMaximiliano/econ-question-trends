@@ -393,6 +393,10 @@ h3 {
   padding-bottom: 64px;
 }
 
+.section:last-of-type {
+  min-height: 100vh;
+}
+
 .section-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
