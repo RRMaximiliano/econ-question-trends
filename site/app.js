@@ -145,13 +145,13 @@
         if (!target) return;
 
         event.preventDefault();
-        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         main.scrollTo({
           top: Math.max(0, target.offsetTop - topbarHeight()),
-          behavior: reduceMotion ? "auto" : "smooth",
+          behavior: "auto",
         });
         window.history.pushState(null, "", `#${targetId}`);
         setActiveLink(targetId);
+        window.requestAnimationFrame(() => setActiveLink(targetId));
       });
     });
 
