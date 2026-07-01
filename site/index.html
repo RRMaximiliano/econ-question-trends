@@ -26,7 +26,7 @@
           <div class="section-label">Dashboard</div>
           <a href="#overview" class="nav-link active" data-nav-link>Overview</a>
           <a href="#about" class="nav-link" data-nav-link>About</a>
-          <a href="#methods" class="nav-link" data-nav-link>Data & methods</a>
+          <a href="#methods" class="nav-link" data-nav-link>Data collection</a>
           <div class="section-label">Trend Views</div>
           <a href="#full-period" class="nav-link" data-nav-link>1975-2025</a>
           <a href="#recent" class="nav-link" data-nav-link>Recent window</a>
@@ -53,7 +53,7 @@
             <button class="icon-button" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle theme">
               <span aria-hidden="true">◐</span>
             </button>
-            <a class="text-button" href="#methods">Methods</a>
+            <a class="text-button" href="#methods">Data</a>
           </div>
         </header>
 
@@ -151,65 +151,65 @@
         <section id="methods" class="section">
           <div class="section-head">
             <div>
-              <div class="mono-label">Data pipeline</div>
-              <h2>How the site is built</h2>
+              <div class="mono-label">Data collection</div>
+              <h2>How we collect the article data</h2>
             </div>
             <p class="section-copy">
-              The public site is a static export of generated tables. The underlying code keeps the
-              collection, enrichment, classification, validation, and trend steps auditable.
+              The project starts from public bibliographic metadata, then constructs a deduplicated
+              article-level panel for the top-five journal scope before any classification is run.
             </p>
           </div>
 
           <div class="method-columns">
             <article class="panel">
               <div class="panel-head">
-                <h3>Data construction</h3>
-                <span class="tag">metadata</span>
+                <h3>Source collection</h3>
+                <span class="tag">Crossref / OpenAlex</span>
               </div>
               <div class="pipeline-list">
                 <div class="pipeline-step">
                   <span>01</span>
-                  <p>Collect DOI-centered bibliographic metadata from Crossref and work metadata from OpenAlex.</p>
+                  <p>Define the five journals with ISSN-L, print/electronic ISSNs, publisher names, and OpenAlex source IDs in <code>config/journals.yml</code>.</p>
                 </div>
                 <div class="pipeline-step">
                   <span>02</span>
-                  <p>Deduplicate records into an article-level panel using DOI, or normalized title-journal-year when DOI is missing.</p>
+                  <p>Query Crossref by journal ISSN and publication year to collect DOI-centered bibliographic records for 1975-2025.</p>
                 </div>
                 <div class="pipeline-step">
                   <span>03</span>
-                  <p>Backfill missing text from cached abstracts, open metadata, and bounded PDF/OCR recovery when evidence is available.</p>
+                  <p>Query OpenAlex Works by verified source IDs and years to recover article metadata, abstracts where available, authorships, concepts, topics, keywords, and DOI links.</p>
                 </div>
               </div>
             </article>
 
             <article class="panel">
               <div class="panel-head">
-                <h3>Classification and trends</h3>
-                <span class="tag">analysis</span>
+                <h3>Article panel construction</h3>
+                <span class="tag">deduplication</span>
               </div>
               <div class="pipeline-list">
                 <div class="pipeline-step">
                   <span>04</span>
-                  <p>Classify articles into causal, predictive, other, or insufficient text using auditable rules and model-assisted labels.</p>
+                  <p>Standardize Crossref and OpenAlex records into a common source-record table with source provenance columns.</p>
                 </div>
                 <div class="pipeline-step">
                   <span>05</span>
-                  <p>Run validation diagnostics, overlap checks, adjudication, and a validation gate before reading trends.</p>
+                  <p>Deduplicate to one article record by normalized DOI when available, otherwise by normalized title, journal, and publication year.</p>
                 </div>
                 <div class="pipeline-step">
                   <span>06</span>
-                  <p>Export trend tables into <code>site/data.js</code>, which powers this static GitHub Pages dashboard.</p>
+                  <p>Track missingness and provenance for key fields such as title, abstract, DOI, author names, journal, volume, issue, pages, keywords, and source-provided article type.</p>
                 </div>
               </div>
             </article>
           </div>
 
           <div class="callout">
-            <strong>Interpretation boundary</strong>
+            <strong>Coverage boundary</strong>
             <span>
-              This is an exploratory descriptive dashboard. The current gate passes, but the latest
-              validation pass is AI-assisted and should be reported that way unless a separate human
-              audit subset is completed.
+              The current dataset is a public-source metadata panel, not a final archival journal
+              database. Crossref and OpenAlex records update over time, JEL coverage is currently
+              missing, and abstract availability varies by journal and year.
             </span>
           </div>
         </section>
@@ -322,30 +322,32 @@
         <section id="replication" class="section final-section">
           <div class="section-head">
             <div>
-              <div class="mono-label">GitHub Pages</div>
+              <div class="mono-label">Replication</div>
               <h2>Sharing and replication</h2>
             </div>
             <p class="section-copy">
-              The repository should publish this static site through GitHub Actions and keep large
-              raw/intermediate data outside git unless released as a separate replication archive.
+              The public repository contains the code, configuration, prompts, tests, documentation,
+              and current dashboard snapshot. Large raw and intermediate data artifacts are kept out
+              of git and should be distributed separately for full computational replication.
             </p>
           </div>
           <div class="info-grid two">
             <article class="info-card">
-              <div class="mono-label">Website</div>
-              <h3>Deploy from <code>site/</code></h3>
+              <div class="mono-label">Run path</div>
+              <h3>Rebuild from archived inputs</h3>
               <p>
-                The GitHub Action packages the dashboard, selected public docs, and <code>.nojekyll</code>
-                into a Pages artifact on every push to <code>main</code>.
+                Restore the archived <code>data/raw</code>, <code>data/intermediate</code>, and
+                <code>data/final</code> folders, install dependencies, then run the documented
+                Makefile targets for tests, validation diagnostics, and trend tables.
               </p>
             </article>
             <article class="info-card">
-              <div class="mono-label">Reproduction</div>
-              <h3>Code first, data archived separately</h3>
+              <div class="mono-label">Data boundary</div>
+              <h3>Public code, separate data package</h3>
               <p>
-                Source code, configs, tests, prompts, and documentation belong in git. Large raw
-                API caches, PDF caches, and generated output tables should be restored from an
-                archived replication package when needed.
+                The repository does not commit raw API caches, PDF/OCR caches, reviewer files, or
+                generated output tables. That boundary keeps the GitHub project readable while
+                preserving a path for a formal replication archive.
               </p>
             </article>
           </div>
