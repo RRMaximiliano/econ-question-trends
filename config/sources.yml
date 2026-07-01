@@ -1,0 +1,39 @@
+project: econ-question-trends
+source_priority:
+  bibliographic:
+    - crossref
+    - openalex
+  abstract:
+    - openalex
+    - crossref
+  authors:
+    - openalex
+    - crossref
+  affiliations:
+    - openalex
+    - crossref
+  keywords:
+    - openalex
+    - crossref
+
+sources:
+  crossref:
+    enabled: true
+    base_url: "https://api.crossref.org"
+    access_method: "REST API"
+    notes: "Used for DOI-centered bibliographic metadata, dates, journal, volume, issue, pages, and URLs. Abstracts and article categories are often incomplete."
+  openalex:
+    enabled: true
+    base_url: "https://api.openalex.org"
+    access_method: "REST API"
+    notes: "Used for work discovery, abstracts where available, authorships, institutions, keywords, concepts, topics, and DOI links."
+
+run_defaults:
+  start_year: 2023
+  end_year: 2025
+  polite_email_env_vars:
+    - OPENALEX_MAILTO
+    - CROSSREF_MAILTO
+    - CONTACT_EMAIL
+  request_timeout_seconds: 45
+  sleep_seconds: 0.25

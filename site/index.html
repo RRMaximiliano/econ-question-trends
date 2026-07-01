@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Econ Question Trends</title>
+    <meta
+      name="description"
+      content="A compact trend dashboard for causal, predictive, and other research questions in top economics journals."
+    />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Dashboard navigation">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">ET</div>
+          <div>
+            <div class="brand-title">Econ Trends</div>
+            <div class="brand-subtitle">Question classification</div>
+          </div>
+        </div>
+
+        <nav class="nav-stack">
+          <div class="section-label">Dashboard</div>
+          <a href="#overview" class="nav-link active" data-nav-link>Overview</a>
+          <a href="#about" class="nav-link" data-nav-link>About</a>
+          <a href="#methods" class="nav-link" data-nav-link>Data & methods</a>
+          <div class="section-label">Trend Views</div>
+          <a href="#full-period" class="nav-link" data-nav-link>1975-2025</a>
+          <a href="#recent" class="nav-link" data-nav-link>Recent window</a>
+          <a href="#journals" class="nav-link" data-nav-link>Journals</a>
+          <div class="section-label">Project</div>
+          <a href="#validation" class="nav-link" data-nav-link>Validation</a>
+          <a href="#replication" class="nav-link" data-nav-link>Replication</a>
+        </nav>
+
+        <div class="sidebar-note">
+          <div class="mono-label">Gate</div>
+          <strong id="sidebarGate">loading</strong>
+          <span id="sidebarGenerated">data pending</span>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <div class="eyebrow">Causal / predictive / other</div>
+            <h1>Trend Console</h1>
+          </div>
+          <div class="topbar-actions" aria-label="View controls">
+            <button class="icon-button" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle theme">
+              <span aria-hidden="true">◐</span>
+            </button>
+            <a class="text-button" href="#methods">Methods</a>
+          </div>
+        </header>
+
+        <section id="overview" class="section">
+          <div class="section-head">
+            <div>
+              <div class="mono-label">Current run</div>
+              <h2>What moved?</h2>
+            </div>
+            <p class="section-copy">
+              A compact view of the validated descriptive trend tables. Values update from
+              <code>outputs/tables/enriched</code>.
+            </p>
+          </div>
+
+          <div class="metric-grid" id="metricGrid"></div>
+
+          <div class="insight-grid">
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Recent headline</h3>
+                <span class="tag">2023-2025</span>
+              </div>
+              <div id="headlineList" class="headline-list"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Coverage pressure</h3>
+                <span class="tag muted">insufficient text</span>
+              </div>
+              <div id="coverageBars" class="bar-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="about" class="section">
+          <div class="section-head">
+            <div>
+              <div class="mono-label">Project brief</div>
+              <h2>What is Econ Trends?</h2>
+            </div>
+            <p class="section-copy">
+              A reproducible research workflow for tracking whether top economics journal articles
+              are framed around causal questions, predictive questions, or neither.
+            </p>
+          </div>
+
+          <div class="info-grid">
+            <article class="info-card">
+              <div class="mono-label">Scope</div>
+              <h3>Five general-interest journals</h3>
+              <p>
+                American Economic Review, Quarterly Journal of Economics, Journal of Political
+                Economy, Econometrica, and Review of Economic Studies.
+              </p>
+            </article>
+            <article class="info-card">
+              <div class="mono-label">Period</div>
+              <h3>1975-2025 article panel</h3>
+              <p>
+                The current working dataset covers publication years 1975 through 2025, with a
+                closer first-batch inspection of 2023-2025.
+              </p>
+            </article>
+            <article class="info-card">
+              <div class="mono-label">Question</div>
+              <h3>How research framing changes</h3>
+              <p>
+                The dashboard reports descriptive shifts in the share of articles classified as
+                causal, predictive, other, or insufficient text.
+              </p>
+            </article>
+          </div>
+
+          <div class="definition-list">
+            <div class="definition-row">
+              <strong>Causal</strong>
+              <span>Estimating, identifying, or interpreting causal effects.</span>
+            </div>
+            <div class="definition-row">
+              <strong>Predictive</strong>
+              <span>Prediction, forecasting, classification, performance, or out-of-sample accuracy.</span>
+            </div>
+            <div class="definition-row">
+              <strong>Other</strong>
+              <span>Papers that do not clearly fit the causal or predictive definitions.</span>
+            </div>
+            <div class="definition-row">
+              <strong>Insufficient text</strong>
+              <span>Records where available title/abstract/full-text evidence is not enough to classify reliably.</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="methods" class="section">
+          <div class="section-head">
+            <div>
+              <div class="mono-label">Data pipeline</div>
+              <h2>How the site is built</h2>
+            </div>
+            <p class="section-copy">
+              The public site is a static export of generated tables. The underlying code keeps the
+              collection, enrichment, classification, validation, and trend steps auditable.
+            </p>
+          </div>
+
+          <div class="method-columns">
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Data construction</h3>
+                <span class="tag">metadata</span>
+              </div>
+              <div class="pipeline-list">
+                <div class="pipeline-step">
+                  <span>01</span>
+                  <p>Collect DOI-centered bibliographic metadata from Crossref and work metadata from OpenAlex.</p>
+                </div>
+                <div class="pipeline-step">
+                  <span>02</span>
+                  <p>Deduplicate records into an article-level panel using DOI, or normalized title-journal-year when DOI is missing.</p>
+                </div>
+                <div class="pipeline-step">
+                  <span>03</span>
+                  <p>Backfill missing text from cached abstracts, open metadata, and bounded PDF/OCR recovery when evidence is available.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Classification and trends</h3>
+                <span class="tag">analysis</span>
+              </div>
+              <div class="pipeline-list">
+                <div class="pipeline-step">
+                  <span>04</span>
+                  <p>Classify articles into causal, predictive, other, or insufficient text using auditable rules and model-assisted labels.</p>
+                </div>
+                <div class="pipeline-step">
+                  <span>05</span>
+                  <p>Run validation diagnostics, overlap checks, adjudication, and a validation gate before reading trends.</p>
+                </div>
+                <div class="pipeline-step">
+                  <span>06</span>
+                  <p>Export trend tables into <code>site/data.js</code>, which powers this static GitHub Pages dashboard.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="callout">
+            <strong>Interpretation boundary</strong>
+            <span>
+              This is an exploratory descriptive dashboard. The current gate passes, but the latest
+              validation pass is AI-assisted and should be reported that way unless a separate human
+              audit subset is completed.
+            </span>
+          </div>
+        </section>
+
+        <section id="full-period" class="section">
+          <div class="section-head">
+            <div>
+              <div class="mono-label">Long panel</div>
+              <h2>1975-2025 category shares</h2>
+            </div>
+            <div class="control-group" role="group" aria-label="Full-period scenario">
+              <button type="button" class="segmented active" data-full-scenario="baseline">Baseline</button>
+              <button type="button" class="segmented" data-full-scenario="exclude_insufficient_text">Exclude insufficient</button>
+              <button type="button" class="segmented" data-full-scenario="insufficient_text_as_other">Insufficient as other</button>
+            </div>
+          </div>
+          <article class="chart-panel">
+            <div class="chart-toolbar">
+              <div>
+                <h3>Share by publication year</h3>
+                <p>Line chart. Hover or tap the chart for exact yearly values.</p>
+              </div>
+              <div id="fullLegend" class="legend"></div>
+            </div>
+            <div id="fullTrendChart" class="chart-area" role="img" aria-label="Category shares by year"></div>
+          </article>
+        </section>
+
+        <section id="recent" class="section">
+          <div class="section-head">
+            <div>
+              <div class="mono-label">First batch</div>
+              <h2>Recent trend window</h2>
+            </div>
+            <div class="control-group" role="group" aria-label="Recent scenario">
+              <button type="button" class="segmented active" data-recent-scenario="baseline">Baseline</button>
+              <button type="button" class="segmented" data-recent-scenario="title_triage_non_other">Title triage</button>
+              <button type="button" class="segmented" data-recent-scenario="title_triage_all_suggestions">All suggestions</button>
+            </div>
+          </div>
+          <div class="two-column">
+            <article class="chart-panel">
+              <div class="chart-toolbar">
+                <div>
+                  <h3>2023-2025 shares</h3>
+                  <p>Stacked annual composition.</p>
+                </div>
+                <div id="recentLegend" class="legend"></div>
+              </div>
+              <div id="recentStackedChart" class="chart-area compact" role="img" aria-label="Recent category shares"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Change table</h3>
+                <span class="tag">percentage points</span>
+              </div>
+              <div id="recentChangeTable" class="mini-table"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="journals" class="section">
+          <div class="section-head">
+            <div>
+              <div class="mono-label">Decomposition</div>
+              <h2>Which journals drive the move?</h2>
+            </div>
+            <p class="section-copy">Sorted by 2023-2025 share change in the selected category.</p>
+          </div>
+          <div class="control-group left" role="group" aria-label="Journal category">
+            <button type="button" class="segmented active" data-journal-category="causal">Causal</button>
+            <button type="button" class="segmented" data-journal-category="predictive">Predictive</button>
+            <button type="button" class="segmented" data-journal-category="other">Other</button>
+          </div>
+          <article class="panel wide">
+            <div id="journalMoves" class="journal-list"></div>
+          </article>
+        </section>
+
+        <section id="validation" class="section final-section">
+          <div class="section-head">
+            <div>
+              <div class="mono-label">Evidence quality</div>
+              <h2>Validation and caveats</h2>
+            </div>
+          </div>
+          <div class="two-column">
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Category metrics</h3>
+                <span class="tag">validation sample</span>
+              </div>
+              <div id="validationMetrics" class="validation-list"></div>
+            </article>
+            <article class="panel caveat-panel">
+              <div class="panel-head">
+                <h3>Interpretation rule</h3>
+                <span class="tag warning">caveat</span>
+              </div>
+              <p>
+                The validation gate passes, but the latest validation pass is AI-assisted. Use this
+                dashboard for descriptive inspection and pipeline decisions. A publication version
+                should either report AI-assisted validation or add a human audit subset.
+              </p>
+              <div id="gateDetails" class="gate-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="replication" class="section final-section">
+          <div class="section-head">
+            <div>
+              <div class="mono-label">GitHub Pages</div>
+              <h2>Sharing and replication</h2>
+            </div>
+            <p class="section-copy">
+              The repository should publish this static site through GitHub Actions and keep large
+              raw/intermediate data outside git unless released as a separate replication archive.
+            </p>
+          </div>
+          <div class="info-grid two">
+            <article class="info-card">
+              <div class="mono-label">Website</div>
+              <h3>Deploy from <code>site/</code></h3>
+              <p>
+                The GitHub Action packages the dashboard, selected public docs, and <code>.nojekyll</code>
+                into a Pages artifact on every push to <code>main</code>.
+              </p>
+            </article>
+            <article class="info-card">
+              <div class="mono-label">Reproduction</div>
+              <h3>Code first, data archived separately</h3>
+              <p>
+                Source code, configs, tests, prompts, and documentation belong in git. Large raw
+                API caches, PDF caches, and generated output tables should be restored from an
+                archived replication package when needed.
+              </p>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="tooltip" class="tooltip" hidden></div>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

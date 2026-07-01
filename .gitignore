@@ -1,0 +1,39 @@
+# macOS and editor state
+.DS_Store
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Large or generated data artifacts
+data/raw/
+data/intermediate/
+data/final/
+!data/README.md
+
+# Generated outputs and logs
+outputs/*
+!outputs/README.md
+_site/
+
+# Runtime caches
+*.log
+*.tmp
+*.bak

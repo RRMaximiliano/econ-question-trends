@@ -1,0 +1,110 @@
+minimum_usable_text_chars: 250
+candidate_category: insufficient_text
+
+default_sources:
+  - openalex
+  - crossref
+  - semantic_scholar
+  - econpapers
+  - publisher_metadata
+  - unpaywall
+
+source_sleep_seconds:
+  openalex: 0.15
+  crossref: 0.25
+  semantic_scholar: 1.25
+  econpapers: 0.25
+  publisher_metadata: 0.10
+  unpaywall: 0.25
+
+source_timeout_seconds: 45
+source_timeout_seconds_by_source:
+  econpapers: 12
+  publisher_metadata: 6
+
+article_scope_patterns:
+  review_erratum_paratext:
+    - '^front matter$'
+    - '^back matter$'
+    - '^abstracts$'
+    - '^accepted manuscripts$'
+    - '^announcements$'
+    - '^announcement$'
+    - '^errata$'
+    - '^erratum$'
+    - '^erratum\b'
+    - '^erratum to:'
+    - '^correction to:'
+    - '^correction:'
+    - '\ba correction$'
+    - ': erratum$'
+    - '^corrigendum$'
+    - '^corrigendum to:'
+    - '^corrigendum\b'
+    - '^online corrigendum\b'
+    - '^supplement to\b'
+    - '^retraction of:'
+    - '^retraction of\b'
+    - '^addendum$'
+    - '^back cover$'
+    - '^index$'
+    - '^index to volume'
+    - '^forthcoming papers$'
+    - '^news notes$'
+    - '^books received$'
+    - '^volume contents$'
+    - '^notes and comments$'
+    - '^submission of manuscripts'
+    - '^fellows of the econometric society'
+    - '^the econometric society [0-9]{4} annual report'
+    - 'annual report of the president'
+    - '^election of fellows'
+    - '\belection of fellows\b'
+    - '^general information on the association$'
+    - '^proceedings of'
+    - '^recent referees$'
+    - '^in memoriam:'
+    - '^jpe turnaround times$'
+    - '^masthead$'
+    - '^minutes of'
+    - '^committee on'
+    - '^american economic association'
+    - '^the american economic association'
+    - '^american economic review$'
+    - '^the american economic review$'
+    - '^journal of political economy$'
+    - '^econometrica$'
+    - '^quarterly journal of economics$'
+    - '^the quarterly journal of economics$'
+    - '^review of economic studies$'
+    - '^the review of economic studies$'
+    - '^american economic journal:'
+    - '^journal of economic perspectives$'
+    - '^journal of economic literature$'
+    - '^job openings for economists$'
+    - '^report of'
+    - '^referee list$'
+    - '^acknowledg(e)?ment of referees$'
+    - '\breferees? [0-9]{4}'
+    - '^[0-9]{4} lucas prize announcement$'
+    - '^robert e\. lucas jr\.:'
+    - "^editor's introduction$"
+    - '^list of online reports$'
+    - 'committee on statistics'
+    - 'status of women in the economics profession'
+    - 'status of minority groups in the economics profession'
+    - 'search committee'
+    - 'annual reports'
+    - 'frontmatter of'
+    - 'backmatter of'
+  comment_reply:
+    - '^reply to:'
+    - ': comment$'
+    - ': reply$'
+    - '\bcomment\b'
+    - '\breply\b'
+    - '\bdiscussion\b'
+  lecture_address:
+    - '\bnobel lecture\b'
+    - '\bpresidential address\b'
+    - '\baddress\b'

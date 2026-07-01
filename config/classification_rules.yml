@@ -1,0 +1,72 @@
+text_fields:
+  - title
+  - abstract
+
+minimum_usable_text_chars: 250
+
+scoring:
+  strong_weight: 2
+  moderate_weight: 1
+  dominance_margin: 2
+
+causal:
+  notes: "These indicators are a transparent baseline, not final labels. Broad phrases such as 'effect of' are moderate only and should not create high-confidence causal labels on their own."
+  strong_phrases:
+    - causal effect
+    - causal effects
+    - treatment effect
+    - treatment effects
+    - randomized controlled trial
+    - randomised controlled trial
+    - difference-in-differences
+    - differences-in-differences
+    - regression discontinuity
+    - instrumental variable
+    - instrumental variables
+    - natural experiment
+    - identification strategy
+    - exogenous variation
+    - causal evidence
+  moderate_phrases:
+    - effect of
+    - effects of
+    - impact of
+    - impacts of
+    - randomized
+    - randomised
+    - experiment
+    - experimental evidence
+    - counterfactual
+    - quasi-experiment
+    - quasi-experimental
+    - plausibly exogenous
+
+predictive:
+  notes: "These indicators target prediction, forecasting, classification, predictive performance, and out-of-sample accuracy. Generic words such as 'model' are intentionally excluded."
+  strong_phrases:
+    - out-of-sample
+    - out of sample
+    - predictive accuracy
+    - prediction accuracy
+    - forecast accuracy
+    - forecasting accuracy
+    - machine learning
+    - supervised learning
+    - cross-validation
+    - cross validation
+    - nowcasting
+  moderate_phrases:
+    - predict
+    - predicts
+    - predicted
+    - predicting
+    - prediction
+    - predictions
+    - predictive
+    - forecast
+    - forecasts
+    - forecasting
+    - nowcast
+    - classification
+    - classify
+    - classifier

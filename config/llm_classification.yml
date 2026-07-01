@@ -1,0 +1,15 @@
+prompt_version: classify_causal_predictive_v1
+prompt_path: prompts/classify_causal_predictive_v1.md
+provider: openai_responses
+api_url: "https://api.openai.com/v1/responses"
+model_env_var: OPENAI_MODEL
+default_model: gpt-5.5
+api_key_env_var: OPENAI_API_KEY
+temperature: 0
+max_output_tokens: 500
+input_fields:
+  - title
+  - abstract
+minimum_usable_text_chars: 250
+cache_dir: data/intermediate/llm_cache
+request_timeout_seconds: 90

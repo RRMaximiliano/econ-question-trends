@@ -1,0 +1,18 @@
+minimum_overall_abstract_share: 0.80
+minimum_journal_abstract_share: 0.60
+maximum_insufficient_text_share: 0.20
+minimum_high_confidence_validation_agreement: 0.85
+analysis_scope_column: article_scope
+excluded_analysis_scopes:
+  - review_erratum_paratext
+  - comment_reply
+  - lecture_address
+categories:
+  - causal
+  - predictive
+  - other
+  - insufficient_text
+confidence_levels:
+  - high
+  - medium
+  - low

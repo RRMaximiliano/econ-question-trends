@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manual Validation Portal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #1f2933;
+      background: #ffffff;
+    }
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+    }
+    h1 {
+      margin: 0 0 16px;
+      font-size: 26px;
+    }
+    h2 {
+      margin-top: 28px;
+      font-size: 18px;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin: 18px 0;
+    }
+    .metric {
+      border: 1px solid #d7dce2;
+      border-radius: 8px;
+      padding: 12px;
+      background: #f7f8fa;
+    }
+    .metric span {
+      display: block;
+      color: #667085;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    .metric strong {
+      font-size: 18px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border-bottom: 1px solid #d7dce2;
+      padding: 9px 8px;
+      text-align: left;
+      font-size: 14px;
+    }
+    th {
+      color: #667085;
+      font-weight: 650;
+    }
+    a {
+      color: #215c5c;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Manual Validation Portal</h1>
+    <div class="summary">
+      <div class="metric"><span>Ready</span><strong>yes</strong></div>
+      <div class="metric"><span>Main labels</span><strong>300 / 300</strong></div>
+      <div class="metric"><span>Remaining</span><strong>0</strong></div>
+      <div class="metric"><span>Next batch</span><strong></strong></div>
+      <div class="metric"><span>Drifted articles</span><strong>0</strong></div>
+      <div class="metric"><span>Calibration labels</span><strong>20 / 20</strong></div>
+      <div class="metric"><span>Overlap labels</span><strong>30.0 / 30.0</strong></div>
+      <div class="metric"><span>Adjudications</span><strong>145</strong></div>
+      <div class="metric"><span>Scope review</span><strong>7 / 7</strong></div>
+    </div>
+
+    <h2>Start Here</h2>
+    <ul>
+      <li><a href="manual_validation_codebook.md">Manual validation codebook</a></li>
+      <li><a href="human_review_workboard.md">Human review workboard</a></li>
+      <li><a href="manual_validation_readiness.md">Readiness report</a></li>
+      <li><a href="manual_validation_status.md">Manual validation status</a></li>
+      <li><a href="manual_validation_overlap.md">Overlap QA report</a></li>
+      <li><a href="manual_validation_calibration_kickoff.md">Calibration kickoff checklist</a></li>
+      <li><a href="manual_validation_calibration_guide.md">Calibration guide</a></li>
+      <li><a href="manual_validation_calibration_remaining.md">Calibration remaining rows</a></li>
+      <li><a href="../data/intermediate/manual_validation_calibration/manual_validation_calibration_remaining_submission_template.csv">Calibration spreadsheet template</a></li>
+      <li><a href="manual_validation_calibration.md">Calibration report</a></li>
+      <li><a href="manual_validation_adjudication_status.md">Adjudication status</a></li>
+      <li><a href="scope_review_packet.md">Scope review packet</a></li>
+      <li><a href="scope_review_guide.md">Scope review guide</a></li>
+      <li><a href="scope_review_apply.md">Scope review apply dry run</a></li>
+    </ul>
+
+    <h2>Main Reviewer Batches</h2>
+    <table>
+      <thead><tr><th>Batch</th><th>Form</th><th>Completed</th><th>Remaining</th></tr></thead>
+      <tbody><tr><td>B001</td><td><a href="../data/intermediate/manual_validation_forms/manual_validation_review_packet_batch_001.html">manual_validation_review_packet_batch_001.html</a></td><td>50</td><td>0</td></tr>
+<tr><td>B002</td><td><a href="../data/intermediate/manual_validation_forms/manual_validation_review_packet_batch_002.html">manual_validation_review_packet_batch_002.html</a></td><td>50</td><td>0</td></tr>
+<tr><td>B003</td><td><a href="../data/intermediate/manual_validation_forms/manual_validation_review_packet_batch_003.html">manual_validation_review_packet_batch_003.html</a></td><td>50</td><td>0</td></tr>
+<tr><td>B004</td><td><a href="../data/intermediate/manual_validation_forms/manual_validation_review_packet_batch_004.html">manual_validation_review_packet_batch_004.html</a></td><td>50</td><td>0</td></tr>
+<tr><td>B005</td><td><a href="../data/intermediate/manual_validation_forms/manual_validation_review_packet_batch_005.html">manual_validation_review_packet_batch_005.html</a></td><td>50</td><td>0</td></tr>
+<tr><td>B006</td><td><a href="../data/intermediate/manual_validation_forms/manual_validation_review_packet_batch_006.html">manual_validation_review_packet_batch_006.html</a></td><td>50</td><td>0</td></tr></tbody>
+    </table>
+
+    <h2>Overlap QA Forms</h2>
+    <ul>
+      <li><a href="../data/intermediate/manual_validation_overlap_forms/manual_validation_review_packet_batch_001.html">manual_validation_review_packet_batch_001.html</a></li>
+    </ul>
+
+    <h2>Calibration Forms</h2>
+    <ul>
+      <li><a href="../data/intermediate/manual_validation_calibration_forms/manual_validation_calibration_dashboard.html">manual_validation_calibration_dashboard.html</a></li>
+<li><a href="../data/intermediate/manual_validation_calibration_forms/manual_validation_calibration_remaining.html">manual_validation_calibration_remaining.html</a></li>
+<li><a href="../data/intermediate/manual_validation_calibration_forms/manual_validation_review_packet_batch_001.html">manual_validation_review_packet_batch_001.html</a></li>
+    </ul>
+
+    <h2>Scope Review</h2>
+    <ul>
+      <li><a href="../data/intermediate/scope_review_forms/scope_review_packet.html">Scope review form</a></li>
+      <li><a href="scope_review_packet.md">Scope review packet report</a></li>
+      <li><a href="scope_review_guide.md">Scope review guide</a></li>
+      <li><a href="scope_review_apply.md">Scope review apply dry run</a></li>
+    </ul>
+  </main>
+</body>
+</html>
